@@ -1,7 +1,7 @@
 package com.dyma.tennis.spring;
 
 import com.dyma.tennis.spring.repository.HealthCheckRepository;
-import com.dyma.tennis.spring.rest.HealthCheckController;
+import com.dyma.tennis.spring.web.HealthCheckController;
 import com.dyma.tennis.spring.service.HealthCheckService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
