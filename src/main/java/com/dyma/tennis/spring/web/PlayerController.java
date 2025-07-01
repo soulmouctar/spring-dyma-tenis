@@ -1,5 +1,6 @@
 package com.dyma.tennis.spring.web;
 
+import com.dyma.tennis.spring.PlayerList;
 import com.dyma.tennis.spring.entity.Player;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
@@ -17,11 +18,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/players")
 public class PlayerController {
-    /**
-     * List players.
-     *
-     * @return a list of players
-     */
+
     @Operation(summary = "List players", description = "Returns a list of players.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "List of players",
@@ -31,7 +28,7 @@ public class PlayerController {
     })
     @GetMapping
     public List<Player> list() {
-        return Collections.emptyList();
+        return PlayerList.ALL;
     }
 
     @Operation(summary = "Find player by LatsName", description = "Returns LastName of players.")
@@ -43,7 +40,11 @@ public class PlayerController {
     })
     @GetMapping("{lastName}")
     public Player getByLastName(@PathVariable(name = "lastName") String lastName) {
-        return null;
+
+        return PlayerList.ALL.stream()
+                .filter(player -> player.firstName().equals(lastName))
+                .findFirst()
+                .orElse(null);
     }
 
     @Operation(summary = "Create Player", description = "Returns Created Player.")
@@ -69,6 +70,7 @@ public class PlayerController {
     public Player updatePlayer(@RequestBody Player player) {
         return player;
     }
+
 
     @Operation(summary = "Delete One Player", description = "Delete a Player.")
     @ApiResponses(value = {
