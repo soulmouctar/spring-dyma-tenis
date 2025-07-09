@@ -1,7 +1,9 @@
-package com.dyma.tennis.spring.exceptions;
+package com.dyma.tennis.spring.service;
 
 import com.dyma.tennis.spring.PlayerList;
 import com.dyma.tennis.spring.entity.Player;
+import com.dyma.tennis.spring.entity.PlayerToRegister;
+import com.dyma.tennis.spring.exceptions.PlayerNotFounfException;
 import org.springframework.stereotype.Service;
 
 import java.util.Comparator;
@@ -21,5 +23,15 @@ public class PlayerService {
                 .filter(player -> player.firstName().equals(lastName))
                 .findFirst()
                 .orElseThrow(() -> new PlayerNotFounfException(lastName));
+    }
+
+    public Player create(PlayerToRegister playerToRegister){
+        RankingCalculator rankingCalculator = new RankingCalculator(
+                PlayerList.ALL, playerToRegister
+        );
+        List<Player> players = rankingCalculator.getNewPlayersRanking();
+        return players.stream()
+                .filter(player -> player.lastName().equals(playerToRegister.lastName()))
+                .findFirst().get();
     }
 }

@@ -1,8 +1,8 @@
 package com.dyma.tennis.spring.web;
 
-import com.dyma.tennis.spring.PlayerList;
 import com.dyma.tennis.spring.entity.Player;
-import com.dyma.tennis.spring.exceptions.PlayerService;
+import com.dyma.tennis.spring.entity.PlayerToRegister;
+import com.dyma.tennis.spring.service.PlayerService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -14,7 +14,6 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Collections;
 import java.util.List;
 
 @Tag(name = "Tenis Player API")
@@ -60,8 +59,8 @@ public class PlayerController {
             )
     })
     @PostMapping
-    public Player createPlayer(@RequestBody @Valid Player player) {
-        return player;
+    public Player createPlayer(@RequestBody @Valid PlayerToRegister playerToRegister) {
+        return playerService.create(playerToRegister);
     }
 
     @Operation(summary = "Update Player", description = "Returns updated Player.")
