@@ -15,4 +15,11 @@ public class PlayerService {
                 .sorted(Comparator.comparing(player -> player.rank().position()))
                 .collect(Collectors.toList());
     }
+
+    public Player getPlayerByLastName(String lastName){
+        return PlayerList.ALL.stream()
+                .filter(player -> player.firstName().equals(lastName))
+                .findFirst()
+                .orElseThrow(() -> new PlayerNotFounfException(lastName));
+    }
 }

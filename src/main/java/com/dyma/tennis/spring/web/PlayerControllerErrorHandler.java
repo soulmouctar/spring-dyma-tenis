@@ -1,5 +1,7 @@
 package com.dyma.tennis.spring.web;
 
+import com.dyma.tennis.spring.Error;
+import com.dyma.tennis.spring.exceptions.PlayerNotFounfException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -13,10 +15,10 @@ import java.util.NoSuchElementException;
 @RestControllerAdvice
 public class PlayerControllerErrorHandler {
 
-    @ExceptionHandler(NoSuchElementException.class)
+    @ExceptionHandler(PlayerNotFounfException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    public void handleNoElementException() {
-
+    public Error handlePlayerNotFoundException(PlayerNotFounfException exception) {
+        return new Error(exception.getMessage());
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
