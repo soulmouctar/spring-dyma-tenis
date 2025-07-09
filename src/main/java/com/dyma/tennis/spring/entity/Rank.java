@@ -4,8 +4,8 @@ import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.PositiveOrZero;
 
 public record Rank(
-        @Positive int postion,
-        @PositiveOrZero int points
+        @Positive(message = "La position doit etre positive") int position,
+        @PositiveOrZero(message = "ce champ soit etre suerieur ou egal a zero") int points
 ) {
 
 }

@@ -45,7 +45,7 @@ public class PlayerController {
         return PlayerList.ALL.stream()
                 .filter(player -> player.firstName().equals(lastName))
                 .findFirst()
-                .orElse(null);
+                .orElseThrow();
     }
 
     @Operation(summary = "Create Player", description = "Returns Created Player.")
